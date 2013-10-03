@@ -116,7 +116,9 @@ fb.requestNewReadPermissions(['read_stream','user_hometown', etc...], function(e
 requestNewPublishPermissions
 ----------------------------
  
- You must use the audience constants from the module, either `audienceNone`, `audienceOnlyMe`, `audienceFriends`, or `audienceEveryone`
+ You must use the audience constants from the module, either `audienceNone`, `audienceOnlyMe`, `audienceFriends`, or `audienceEveryone`.
+ Note that it is not an error for the user to 'Skip' your requested permissions, so you should check the module's permissions property following the call.
+
 ```
 var fb = require('facebook');
 fb.requestNewPublishPermissions(['read_stream','user_hometown', etc...], fb.audienceFriends, function(e){
