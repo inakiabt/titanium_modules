@@ -6,7 +6,7 @@
 # where x.y.z correspond to the Facebook SDK version
 # t is the titanium module version # for this SDK
  
-version: 3.5.30
+version: 3.8.01
 apiversion: 2
 description: Allows facebook integration for Titanium apps, including iOS 6's social frameworks
 author: Blain Hamon

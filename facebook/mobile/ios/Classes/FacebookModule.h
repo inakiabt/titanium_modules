@@ -5,7 +5,7 @@
  */
 
 #import "TiModule.h"
-#import "FacebookSDK.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @protocol TiFacebookStateListener
 @required
@@ -17,16 +17,15 @@
 @interface FacebookModule : TiModule
 {
 	BOOL loggedIn;
+    BOOL canShare;
 	NSString *uid;
-	NSString *url;
+	//NSString *url;
 	NSArray *permissions;
 	NSMutableArray *stateListeners;
 }
 
-@property(nonatomic,readonly) NSNumber *BUTTON_STYLE_NORMAL;
-@property(nonatomic,readonly) NSNumber *BUTTON_STYLE_WIDE;
-
 -(BOOL)isLoggedIn;
+-(BOOL)passedShareDialogCheck;
 -(void)addListener:(id<TiFacebookStateListener>)listener;
 -(void)removeListener:(id<TiFacebookStateListener>)listener;
 

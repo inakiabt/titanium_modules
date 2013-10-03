@@ -11,7 +11,6 @@
 // How to add a Framework (example)
 //
 // OTHER_LDFLAGS=$(inherited) -framework Foo
-OTHER_LDFLAGS=$(inherited) -weak_framework AdSupport -weak_framework Accounts -weak_framework Social
 //
 // Adding a framework for a specific version(s) of iPhone:
 //
@@ -26,3 +25,4 @@ OTHER_LDFLAGS=$(inherited) -weak_framework AdSupport -weak_framework Accounts -w
 //
 // IMPORTANT NOTE: always use $(inherited) in your overrides
 // 
+OTHER_LDFLAGS=$(inherited) -F"/My/path/to/titanium_modules/facebook/mobile/ios" -framework FacebookSDK
