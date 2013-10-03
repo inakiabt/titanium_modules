@@ -113,8 +113,8 @@ fb.requestNewReadPermissions(['read_stream','user_hometown', etc...], function(e
 });
 ```
  
- requestNewPublishPermissions
- ----------------------------
+requestNewPublishPermissions
+----------------------------
  
  You must use the audience constants from the module, either `audienceNone`, `audienceOnlyMe`, `audienceFriends`, or `audienceEveryone`
 ```
