@@ -88,7 +88,7 @@ Use it! You don't need permissions, you don't even need the user to be logged in
 *	First check if you can use it - call `fb.getCanPresentShareDialog()` which returns a boolean.
 *	Currently the callback in the module just prints success or error to the debug log
 *	To share a user's status just call `fb.share({});`
-*	To share a link call `fb.share({url: 'http://example.com' });
+*	To share a link call `fb.share({url: 'http://example.com' });`
 *	To post a graph action call:
 
 ```javascript
