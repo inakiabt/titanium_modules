@@ -90,7 +90,8 @@ Use it! You don't need permissions, you don't even need the user to be logged in
 *	To share a user's status just call `fb.share({});`
 *	To share a link call `fb.share({url: 'http://example.com' });
 *	To post a graph action call:
-```
+
+```javascript
 fb.share({url: someUrl, namespaceObject: 'myAppnameSpace:graphObject', objectName: 'graphObject', imageUrl: someImageUrl, 
 		title: aTitle, description: blahBlah, namespaceAction: 'myAppnameSpace:actionType', placeId: facebookPlaceId}`
 ```
