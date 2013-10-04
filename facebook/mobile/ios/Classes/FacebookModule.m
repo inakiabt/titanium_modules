@@ -140,7 +140,6 @@ BOOL temporarilySuspended = NO;
                     if (!error) {
                         uid = [[user objectForKey:@"id"] copy];
                         loggedIn = YES;
-                        [self fireLoginChange];
                         [self fireLogin:user cancelled:NO withError:nil];
                     } else {
                         // Error on /me call
@@ -151,7 +150,6 @@ BOOL temporarilySuspended = NO;
                             [FBSession.activeSession closeAndClearTokenInformation];
                         }, YES);
                         loggedIn = NO;
-                        [self fireLoginChange];
                         // We set error to nil since any useful message was already surfaced
                         [self fireLogin:nil cancelled:NO withError:nil];
                         
@@ -170,7 +168,6 @@ BOOL temporarilySuspended = NO;
     if (error) {
         NSLog(@"sessionStateChanged error");
         loggedIn = NO;
-        [self fireLoginChange];
         BOOL userCancelled = error.fberrorCategory == FBErrorCategoryUserCancelled;
         [self fireLogin:nil cancelled:userCancelled withError:error];
     } else {
@@ -187,7 +184,6 @@ BOOL temporarilySuspended = NO;
                 }, YES);
                 
                 loggedIn = NO;
-                [self fireLoginChange];
                 [self fireEvent:@"logout"];
                 break;
             default:
@@ -630,24 +626,6 @@ BOOL temporarilySuspended = NO;
 }
 
 #pragma mark Listener work
-
--(void)fireLoginChange
-{
-	if (stateListeners!=nil)
-	{
-		for (id<TiFacebookStateListener> listener in [NSArray arrayWithArray:stateListeners])
-		{
-			if (loggedIn)
-			{
-				[listener login];
-			}
-			else
-			{
-				[listener logout];
-			}
-		}
-	}
-}
 
 -(void)fireLogin:(id)result cancelled:(BOOL)cancelled withError:(NSError *)error
 {
