@@ -12,6 +12,7 @@
 #import "TiApp.h"
 
 BOOL temporarilySuspended = NO;
+BOOL skipMeCall = NO;
 
 @implementation FacebookModule
 #pragma mark Internal
@@ -71,23 +72,6 @@ BOOL temporarilySuspended = NO;
 {
 	NSLog(@"[DEBUG] facebook startup");
 	[super startup];
-	TiThreadPerformOnMainThread(^{
-		NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
-
-        [nc addObserver:self selector:@selector(activateApp:) name:UIApplicationDidBecomeActiveNotification object:nil];
-        
-        FBShareDialogParams *params = [[FBShareDialogParams alloc] init];
-        params.link = [NSURL URLWithString:@"http://developers.facebook.com/ios"];
-        canShare = [FBDialogs canPresentShareDialogWithParams:params];
-        
-        if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
-            // Start with logged-in state, guaranteed no login UX is fired since logged-in
-            loggedIn = YES;
-            [self authorize:nil];
-        } else {
-            loggedIn = NO;
-        }
-	}, YES);
 }
 
 -(void)shutdown:(id)sender
@@ -319,6 +303,8 @@ BOOL temporarilySuspended = NO;
  * var facebook = require('facebook');
  *
  * facebook.addEventListener('login',function(e) {
+ *    // You *will* get this event if loggedIn == false below
+ *    // Make sure to handle all possible cases of this event
  *    if (e.success) {
  *		alert('login from uid: '+e.uid+', name: '+e.data.name);
  *    }
@@ -334,8 +320,12 @@ BOOL temporarilySuspended = NO;
  *    alert('logged out');
  * });
  *
- * facebook.permissions = ['publish_stream'];
- * facebook.authorize();
+ * facebook.permissions = ['email'];
+ * facebook.initialize(); // after you set up login/logout listeners and permissions
+ * if (!fb.getLoggedIn()) {
+ * // then you want to show a login UI
+ * // where you should have a button that when clicked calls
+ * // facebook.authorize();
  *
  */
 
@@ -353,6 +343,32 @@ BOOL temporarilySuspended = NO;
                 [self sessionStateChanged:session state:state error:error];
          }];
 	}, NO);
+}
+
+// We have this function so that you can set up your listeners and permissions whenever you want
+// Call initialize when ready, you will get a login event if there was a cached token
+// else loggedIn will be false
+-(void)initialize:(id)args
+{
+	TiThreadPerformOnMainThread(^{
+		NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
+        //NSString * savedToken = [TiUtils stringValue:args];
+        
+        [nc addObserver:self selector:@selector(activateApp:) name:UIApplicationDidBecomeActiveNotification object:nil];
+        
+        FBShareDialogParams *params = [[FBShareDialogParams alloc] init];
+        params.link = [NSURL URLWithString:@"http://developers.facebook.com/ios"];
+        canShare = [FBDialogs canPresentShareDialogWithParams:params];
+        
+        if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
+            // Start with logged-in state, guaranteed no login UX is fired since logged-in
+            loggedIn = YES;
+            //skipMeCall = [FBSession.activeSession.accessTokenData.accessToken isEqualToString:savedToken];
+            [self authorize:nil];
+        } else {
+            loggedIn = NO;
+        }
+	}, YES);
 }
 
 /**
