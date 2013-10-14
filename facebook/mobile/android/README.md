@@ -55,6 +55,8 @@ However, there are some differences, so read carefully.
 *	"reauthorize" is not implemented, requestNewReadPermissions and requestNewPublishPermissions in a future rev.
 *	Added the method `fb.initialize()`, which must be called after you setup your `login` and `logout` listeners. 
 This provides flexibility, and allows you to setup the listeners late in the app. 
+* `fb.permissions`, `fb.accessToken`, `fb.expirationDate`, `fb.uid`, `fb.authorize`, `fb.logout`, `fb.loggedIn` work as expected.
+* Note that `fb.permissions` returns the session's actual permissions - not the string array you passed.
 
 Events and error handling
 -------------------------
@@ -112,7 +114,13 @@ fb.addEventListener('login', function(e) {
 	}
 });
 		
-fb.initialize(); // the module will do nothing prior to this. This enabled you to set up listeners anywhere in the app		
+fb.initialize(); // the module will do nothing prior to this. This enabled you to set up listeners anywhere in the app	
+
+if (!fb.loggedIn) {
+	// you want to show your login UI in this case
+	// if the user is loggedIn, just wait for the login event
+	// when you want the user to login, call fb.authorize()
+}	
 ```
 
 Share Dialog
