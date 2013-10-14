@@ -18,10 +18,11 @@ Improvements over Facebook Module 3.0.x
 Installation Details
 --------------------
 * In tiapp.xml or AndroidManifest.xml you must declare the following two activities inside the `<application>` node
-```
-<activity android:name="com.facebook.LoginActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:label="YourAppName"/>
-<activity android:name="facebook.FacebookModuleActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:label="YourAppName"/>
-```
+`<activity android:name="com.facebook.LoginActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" 
+	android:label="YourAppName"/>`
+`<activity android:name="facebook.FacebookModuleActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" 
+	android:label="YourAppName"/>`
+
 One of these activities is Facebook's and required for the SDK, the second is an activity spawned by the Titanium Facebook module.
 This activity is required due to [TIMOB-15443](https://jira.appcelerator.org/browse/TIMOB-15443) . The Facebook SDK requires access
 to the full activity (or fragment) lifecycle, and thus the module needs to spawn this activity which handles all the internal Facebook state changes.
