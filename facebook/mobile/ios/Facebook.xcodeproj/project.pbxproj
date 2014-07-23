@@ -58,8 +58,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */,
 				EAFE197417F2BBF800C89E02 /* FacebookSDK.framework in Frameworks */,
+				AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +223,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/Marek/Documents/Titanium_Studio_Workspace/Facebook,
+					"$(PROJECT_DIR)",
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -264,6 +265,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/Marek/Documents/Titanium_Studio_Workspace/Facebook,
+					"$(PROJECT_DIR)",
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_MODEL_TUNING = G5;

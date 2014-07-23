@@ -66,6 +66,8 @@ BOOL skipMeCall = NO;
 -(void)activateApp:(NSNotification *)notification
 {
     [FBAppCall handleDidBecomeActive];
+    [FBSettings setLoggingBehavior:[NSSet setWithObjects:FBLoggingBehaviorAppEvents, nil]];
+    [FBAppEvents activateApp];
 }
 
 -(void)startup
